@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <h1>Index Projects</h1>
+    <h1 class="fw-bold text-primary">Index Projects</h1>
 
     <a class="btn btn-secondary text-end my-3" href="{{ route('admin.projects.create') }}">New Project</a>
 
-    <table class="table">
+    <table class="table table-dark">
         <thead>
           <tr>
             <th scope="col">Name Project</th>
