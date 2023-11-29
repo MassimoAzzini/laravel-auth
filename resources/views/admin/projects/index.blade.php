@@ -26,7 +26,7 @@
                     <td><a href="{{ $project->url }}" target="_blank">Project link</a></td>
                     <td>
                         <a class="btn btn-success" href="{{ route('admin.projects.show', $project) }}">Details</a>
-                        <a class="btn btn-warning" href="#">Edit</a>
+                        <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project) }}">Edit</a>
                         <a class="btn btn-danger" href="#">Delete</a>
                     </td>
                 </tr>

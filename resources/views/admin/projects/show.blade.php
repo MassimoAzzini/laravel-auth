@@ -5,7 +5,7 @@
         <h1><strong>Project: </strong> {{ $project->name }}</h1>
 
         <div>
-            <a class="btn btn-warning" href="#">Edit</a>
+            <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project) }}">Edit</a>
             <a class="btn btn-danger" href="#">Delete</a>
             <a class="btn btn-primary" href="{{ route('admin.projects.index') }}">Index</a>
         </div>
