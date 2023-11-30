@@ -3,7 +3,7 @@
 namespace App\Functions;
 use Illuminate\Support\Str;
 
-class Helper{
+class Helper {
     public static function generateSlug($string, $model){
 
         $slug =  Str::slug($string, '-');

@@ -17,8 +17,8 @@
         <thead>
           <tr>
             <th scope="col">Name Technologies</th>
-            {{-- <th id="th-magic" class="d-none" scope="col">Link</th> --}}
-            <th class="col-3 text-center" scope="col">Action</th>
+            <th class="col-1 text-center" scope="col">Documentation</th>
+            <th class="col-2 text-center" scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -28,39 +28,29 @@
                     <td>
 
                         <form
+                          class="d-none"
                           action="{{ route('admin.technologies.update', $technology) }}"
                           method="POST"
                           id="form-edit-{{ $technology->id }}">
                           @csrf
                           @method('PUT')
-                          <input type="text" class="form-cst w-25" value="{{ $technology->name }}" name="name" disabled>
+                          <input type="text" class="form-cst w-25" value="{{ $technology->name }}" name="name">
 
-                          <input id="link-{{ $technology->id }}" type="text" class="d-none w-50" value="{{ $technology->link }}" name="link">
+                          <input type="text" class="w-50" value="{{ $technology->link }}" name="link">
 
-                          <button onclick="submitForm({{ $technology->id }})" id="btn-submit-{{ $technology->id }}" class="d-none btn btn-warning">Send</button>
+                          <button onclick="submitForm({{ $technology->id }})" class="btn btn-warning">Send</button>
                         </form>
+                        <span id="name-{{ $technology->id }}" class="">{{ $technology->name }}</span>
 
                     </td>
 
-                    {{-- <td id="td-magic" class="d-none">
-                        <form
-                        action="{{ route('admin.technologies.update', $technology) }}"
-                        method="POST"
-                        id="form-edit-{{ $technology->id }}">
-                        @csrf
-                        @method('PUT')
-                        <input type="text" class="form-cst" value="{{ $technology->name }}" name="name">
-
-                        <input id="link-{{ $technology->id }}" type="text" class="form-cst d-none" value="{{ $technology->link }}" name="link">
-
-                        <button onclick="submitForm({{ $technology->id }})" id="btn-submit-{{ $technology->id }}" class="btn btn-warning d-none">Send</button>
-                      </form>
-
-                    </td> --}}
+                    <td>
+                        @if ( $technology->link )
+                            <a class="btn btn-info" href="{{ $technology->link }}" target="_blank">Documentation</a>
+                        @endif
+                    </td>
 
                     <td class="d-flex justify-content-around">
-
-                        <a class="btn btn-info" href="{{ $technology->link }}" target="_blank">Documentation</a>
 
                         <button onclick="startEdit({{ $technology->id }})" class="btn btn-warning">Edit</button>
                         @include('admin.partials.btnDelate', [
@@ -79,31 +69,18 @@
             const form = document.getElementById('form-edit-' + id);
             form.submit();
 
-            const link = document.getElementById('link-' + id);
-            const btnSubmit = document.getElementById('btn-submit-' + id);
-            // const thLink = document.getElementById('th-magic');
-            // const tdLink = document.getElementById('td-magic');
-            // const tdLink = document.getElementsByClassName('td-magic');
-
-            link.classList.add('d-none');
-            btnSubmit.classList.add('d-none');
-            // thLink.classList.add('d-none');
-            // tdLink.classList.add('d-none');
-
+            const name = document.getElementById('name-' + id);
+            form.classList.add('d-none');
+            name.classList.remove('d-none');
         }
 
 
         function startEdit(id) {
-            const link = document.getElementById('link-' + id);
-            const btnSubmit = document.getElementById('btn-submit-' + id);
-            // const thLink = document.getElementById('th-magic');
-            // const tdLink = document.getElementById('td-magic');
-            // const tdLink = document.getElementsByClassName('td-magic');
+            const form = document.getElementById('form-edit-' + id);
+            const name = document.getElementById('name-' + id);
 
-            link.classList.remove('d-none');
-            btnSubmit.classList.remove('d-none');
-            // thLink.classList.remove('d-none');
-            // tdLink.classList.remove('d-none');
+            form.classList.remove('d-none');
+            name.classList.add('d-none');
         }
 
     </script>
