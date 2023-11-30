@@ -16,7 +16,8 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        $types = Type::all();
+        return view('admin.types.index', compact('types'));
     }
 
     /**
@@ -37,7 +38,16 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $exist = Type::where('name', $request->name)->first();
+        if($exist){
+            return redirect()->route('admin.types.index')->with('error', 'Type already exist');
+        }else{
+            $new_type = new Type();
+            $new_type->name = $request->name;
+            $new_type->slug = Helper::generateSlug($request->name, Type::class);
+            $new_type->save();
+            return redirect()->route('admin.types.index')->with('success', 'Type created');
+        }
     }
 
     /**
@@ -69,9 +79,22 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Type $type)
     {
-        //
+        $val_edit_data = $request->validate([
+            'name' =>'required|max:50',
+        ]);
+
+        $exist = Type::where('name', $request->name)->first();
+        if($exist){
+            return redirect()->route('admin.types.index')->with('error', 'Type already exist');
+        }
+
+        $val_edit_data['slug'] = Helper::generateSlug($request->name, Type::class);
+
+        $type->update($val_edit_data);
+
+        return redirect()->route('admin.types.index')->with('success', 'Type updated');
     }
 
     /**
@@ -80,8 +103,9 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return redirect()->route('admin.types.index')->with('success', 'Type deleted');
     }
 }
