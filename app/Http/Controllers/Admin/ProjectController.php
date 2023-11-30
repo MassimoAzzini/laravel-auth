@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use Illuminate\Http\Request;
+use App\Functions\Helper;
 use App\Models\Project;
 
 class ProjectController extends Controller
@@ -27,7 +28,11 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $title = 'Create New Project';
+        $method = 'POST';
+        $route = route('admin.projects.store');
+        $project = null;
+        return view('admin.projects.create-edit', compact('title','method', 'route', 'project'));
     }
 
     /**
@@ -40,10 +45,10 @@ class ProjectController extends Controller
     {
         $form_data = $request->all();
         $new_project = new Project();
-        $form_data['slug'] = Project::generateSlug($form_data['name']);
+        $form_data['slug'] = Helper::generateSlug($form_data['name'], Project::class);
         $new_project->fill($form_data);
         $new_project->save();
-        return redirect()->route('admin.projects.index', $new_project);
+        return redirect()->route('admin.projects.show', $new_project);
     }
 
     /**
@@ -65,7 +70,11 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $title = 'Edit Project';
+        $method = 'PUT';
+        $route = route('admin.projects.update', $project);
+
+        return view('admin.projects.create-edit', compact('title', 'method', 'route', 'project'));
     }
 
     /**
@@ -82,7 +91,7 @@ class ProjectController extends Controller
         if($project->name === $form_data['name']){
             $form_data['slug'] = $project->slug;
         }else{
-            $form_data['slug'] = Project::generateSlug($form_data['name']);
+            $form_data['slug'] = Helper::generateSlug($form_data['name'], Project::class);
         }
 
         $project->update($form_data);

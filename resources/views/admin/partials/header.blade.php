@@ -1,6 +1,6 @@
 <header class="bg-dark">
     <nav class="navbar navbar-dark">
-        <div class="container-fluid">
+        <div class="container-fluid px-5">
           <a href="{{ route('home') }}" target="_blank" class="navbar-brand">Vai al sito</a>
           <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
             @csrf

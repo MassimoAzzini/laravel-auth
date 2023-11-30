@@ -27,7 +27,10 @@
                     <td>
                         <a class="btn btn-success" href="{{ route('admin.projects.show', $project) }}">Details</a>
                         <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project) }}">Edit</a>
-                        @include('admin.partials.btnDelate')
+                        @include('admin.partials.btnDelate', [
+                            'route' => route('admin.projects.destroy', $project),
+                            'message' => 'Are you sure you want to delete this project?'
+                            ])
                     </td>
                 </tr>
             @endforeach

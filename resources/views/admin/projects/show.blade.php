@@ -6,7 +6,10 @@
 
         <div>
             <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project) }}">Edit</a>
-            @include('admin.partials.btnDelate')
+            @include('admin.partials.btnDelate', [
+                'route' => route('admin.projects.destroy', $project),
+                'message' => 'Are you sure you want to delete this project?'
+                ])
             <a class="btn btn-primary" href="{{ route('admin.projects.index') }}">Index</a>
         </div>
     </div>
