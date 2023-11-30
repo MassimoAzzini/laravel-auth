@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->string('slug', 50);
-            $table->string('link', 255);
+            $table->string('link', 255)->nullable();
             $table->timestamps();
         });
     }

@@ -16,6 +16,16 @@ header {
     }
 }
 
+.form-cst{
+    background-color: white;
+    border: none;
+    &:focus{
+        border:none;
+        outline: none;
+    }
+}
+
+
 .cst-bg {
     background-color: #03282B;
 }
